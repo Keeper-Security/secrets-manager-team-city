@@ -1,0 +1,40 @@
+name: Release Keeper TeamCity Plugin
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish-teamcity-plugin:
+    environment: prod
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: Get the source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Change permissions for gradlew
+        run: chmod u+x ./gradlew
+
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Build Plugin
+        run: ./gradlew serverPlugin
+
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BUILD_NAME=`fgrep rootProject.name ./settings.gradle.kts | sed -r 's/^\s*rootProject\.name\s*=\s*//g' | sed 's/\"//g' | sed 's/\r//g'`
+          BUILD_VERSION=`fgrep buildVersion ./gradle.properties | sed -r 's/^\s*buildVersion\s*=\s*//g' | sed 's/\r//g'`
+          RELEASE_NAME=${BUILD_NAME}-${BUILD_VERSION}.jar
+          TAG=v${BUILD_VERSION}
+          gh release create ${TAG} `pwd`/plugin-ksm-server/build/distributions/*.zip --repo="$GITHUB_REPOSITORY" --title="$RELEASE_NAME" --generate-notes
