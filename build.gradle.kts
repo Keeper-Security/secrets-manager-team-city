@@ -4,7 +4,7 @@ plugins {
 }
 
 extra["teamcityVersion"] = findProperty("teamcityVersion") ?: "2018.1"
-extra["buildVersion"] = findProperty("buildVersion") ?: "1.0.0"
+extra["buildVersion"] = findProperty("buildVersion") ?: "1.0.1"
 extra["group"] = "teamcity-ksm-plugin"
 extra["version"] = extra["buildVersion"]
 

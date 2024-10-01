@@ -7,8 +7,8 @@ import com.github.rodm.teamcity.TeamCityPluginExtension
 
 plugins {
   kotlin("jvm")
-  id("io.github.rodm.teamcity-server") version "1.5.3"
-  id("io.github.rodm.teamcity-environments") version "1.5.3"
+  id("io.github.rodm.teamcity-server") version "1.5.5"
+  id("io.github.rodm.teamcity-environments") version "1.5.5"
 }
 
 extra["downloadsDir"] = project.findProperty("downloads.dir") ?: "$rootDir/downloads"
@@ -40,9 +40,9 @@ dependencies {
   compileOnly("com.squareup.moshi:moshi-kotlin-codegen:1.15.1")
 
   testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
-  testImplementation("org.assertj:assertj-core:3.25.3")
-  testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
-  testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.10.2")
+  testImplementation("org.assertj:assertj-core:3.26.3")
+  testImplementation("org.junit.jupiter:junit-jupiter:5.11.1")
+  testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.11.1")
 }
 
 tasks.serverPlugin {
@@ -67,14 +67,14 @@ teamcity {
         environments.create(this, block)
     }
 
-    "teamcity2023" {
-      version = "2023.05.4"
+    "teamcity2024" {
+      version = "2024.07.2"
       serverOptions("-DTC.res.disableAll=true -Dteamcity.development.mode=true")
       agentOptions()
     }
 
-    "teamcity2023Debug" {
-      version = "2023.05.4"
+    "teamcity2024Debug" {
+      version = "2024.07.2"
       serverOptions("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5600 -DTC.res.disableAll=true -Dteamcity.development.mode=true")
       agentOptions("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5601")
     }

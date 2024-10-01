@@ -1,4 +1,4 @@
-rootProject.name = "teamcity-ksm-plugin"
+rootProject.name = "keeper-secrets-manager"
 
 include("plugin-ksm-common")
 include("plugin-ksm-agent")
