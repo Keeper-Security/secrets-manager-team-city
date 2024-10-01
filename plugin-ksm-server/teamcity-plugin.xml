@@ -14,6 +14,6 @@
       <logo>https://www.keepersecurity.com/assets/branding/favicon-96x96.png</logo>
     </vendor>
   </info>
-  <requirements min-build="58245" />
+  <requirements min-build="60926" />
   <deployment use-separate-classloader="true" allow-runtime-reload="true" />
 </teamcity-plugin>
